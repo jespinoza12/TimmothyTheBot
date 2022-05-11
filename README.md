@@ -5,7 +5,7 @@
 
 ### Installing
 1. Open Terminal
-3. Install requirements with `pipenv install`
+3. Install requirements with `pip install pipenv`
 6. Back to the console, `pipenv run python bot.py` to start the bot
 7. Type `!test` in the chatroom to test the bot's working
 
