@@ -63,11 +63,7 @@ async def event_ready():
         print (rafflelist)
         winner = random.choice(rafflelist)
         rafflewinner = winner + " is the winner!! :)"
-<<<<<<< Updated upstream
         irc.send('PRIVMSG ' + os.environ['CHANNEL'] + ' :' + rafflewinner + '\r\n')
-=======
-        irc.send('PRIVMSG ' + channel + ' :' + rafflewinner + '\r\n')
->>>>>>> Stashed changes
         print (winner) + ' won the raffle!!!'
         os._exit(0)
     def message(msg):
