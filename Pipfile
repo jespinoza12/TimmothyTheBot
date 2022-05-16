@@ -7,8 +7,8 @@ verify_ssl = true
 pylama = "*"
 
 [packages]
-twitchio = "*"
 pyaml = "*"
+twitchio = "*"
 
 [requires]
 python_version = "3.9"
