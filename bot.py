@@ -1,6 +1,6 @@
 from lib2to3.pgen2 import token
 import socket,threading,random,os
-from twitchio.ext import commands
+from twitchio.ext import commands, eventsub
 
 # set up the bot
 # bot = commands.Bot(
@@ -11,7 +11,7 @@ from twitchio.ext import commands
 #     initial_channels=[os.environ['CHANNEL']]
 # )
 
-class Bot(commands.Bot):
+class Bot(commands.Bot, eventsub.Bot):
 
     def __init__(self):
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
@@ -32,6 +32,8 @@ class Bot(commands.Bot):
         # We must let the bot know we want to handle and invoke our commands...
         await self.handle_commands(message)
 
+
+    #Says Hello back
     @commands.command()
     async def hello(self, ctx: commands.Context):
         # Here we have a command hello, we can invoke our command with our prefix and command name
@@ -48,10 +50,7 @@ class Bot(commands.Bot):
         await ctx.send(f'{self.nick} has landed')
 
 
-
-
 #VICTOR UPDATE!!!
-
     @commands.command()
     async def beginRaf():
         channelname = os.environ['CHANNEL'] #Set the channel name here (No need for # that is done on for you)
