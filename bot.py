@@ -11,7 +11,7 @@ from twitchio.ext import commands, eventsub
 #     initial_channels=[os.environ['CHANNEL']]
 # )
 
-class Bot(commands.Bot, eventsub.Bot):
+class Bot(commands.Bot):
 
     def __init__(self):
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
