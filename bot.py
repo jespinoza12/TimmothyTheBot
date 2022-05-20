@@ -1,4 +1,3 @@
-from lib2to3.pgen2 import token
 import socket,threading,random,os
 from twitchio.ext import commands, eventsub
 
@@ -27,6 +26,9 @@ class Bot(commands.Bot):
 
         # Print the contents of our message to console...
         print(message.content)
+        if( message.content == "badword") : 
+            print("Thats a badword " + message.author.name)
+        
 
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
