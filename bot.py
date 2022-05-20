@@ -51,33 +51,33 @@ class Bot(commands.Bot):
     async def test(self, ctx: commands.Context):
         await ctx.send(f'{self.nick} has landed')
 
-    @commands.command(name='questions')
-    async def questions(ctx):
+    @commands.command()
+    async def questions(self, ctx: commands.Context):
         await ctx.send('How long have you been streaming? (!Long)' + '\n' +
                         "What's My Name? (!Name)" + '\n' + "How Old Am I? (!Age)" + '\n' + "Where Am I from? (!From)" + '\n' + "When Do I Stream? (!Stream)")
 
-    @commands.command(name='Long')
-    async def Long(ctx):
+    @commands.command()
+    async def Long(self, ctx: commands.Context):
         await ctx.send('I have been streaming for 2 years')
 
-    @commands.command(name='Name')
-    async def Name(ctx):
+    @commands.command()
+    async def Name(self, ctx: commands.Context):
         await ctx.send('Julian Winters')
 
-    @commands.command(name='Age')
-    async def Age(ctx):
+    @commands.command()
+    async def Age(self, ctx: commands.Context):
         await ctx.send('20')
 
-    @commands.command(name='From')
-    async def From(ctx):
+    @commands.command()
+    async def From(self, ctx: commands.Context):
         await ctx.send('I am from New York, Carliona')
 
-    @commands.command(name='Stream')
-    async def Stream(ctx):
+    @commands.command()
+    async def Stream(self, ctx: commands.Context):
         await ctx.send('I stream everyday at 4')
 
-    @commands.command(name='beginraffle')
-    async def beginraffle(ctx):
+    @commands.command()
+    async def beginraffle(self, ctx: commands.Context):
         await ctx.send("Entries for the raffle have started. Type !raffle  to join now!!")
         channelname = 'fro7yfeet' #Set the channel name here (No need for # that is done on for you)
         nick = os.environ['BOT_NICK']  # create an account for your bot on twitch then set you bot name here
