@@ -54,7 +54,7 @@ class Bot(commands.Bot):
 
 #VICTOR UPDATE!!!
     @commands.command()
-    async def beginRaf():
+    async def beginRaf(self):
         channelname = os.environ['CHANNEL'] #Set the channel name here (No need for # that is done on for you)
         nick = os.environ['BOT_NICK']  # create an account for your bot on twitch then set you bot name here
         token = os.environ['TMI_TOKEN'] #get your bots oath from http://www.twitchapps.com/tmi/
