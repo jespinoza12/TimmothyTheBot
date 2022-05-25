@@ -1,14 +1,6 @@
-import socket,threading,random,os
+import socket,threading,random,os,twitchio
 from twitchio.ext import commands, eventsub
 
-# set up the bot
-# bot = commands.Bot(
-#     token=os.environ['TMI_TOKEN'],
-#     client_id=os.environ['CLIENT_ID'],
-#     nick=os.environ['BOT_NICK'],
-#     prefix=os.environ['BOT_PREFIX'],
-#     initial_channels=[os.environ['CHANNEL']]
-# )
 
 class Bot(commands.Bot):
 
@@ -27,7 +19,7 @@ class Bot(commands.Bot):
         # Print the contents of our message to console...
         print(message.content)
         if( message.content == "badword") : 
-            print("Thats a badword " + message.author.name)
+            await message.channel.send(f"Thats a badword {message.author}")
         
 
         # Since we have commands and are overriding the default `event_message`
@@ -94,7 +86,7 @@ class Bot(commands.Bot):
         irc.send('JOIN ' + channel + '\r\n')
         rafflelist = []
         beginraffle = "Entries for the raffle have started. Type !raffle  to join now!!"
-        print (beginraffle);
+        print (beginraffle)
         irc.send('PRIVMSG ' + channel + ' :' + beginraffle + '\r\n')
         def rafflesave():
             rafflelist.append(user)
