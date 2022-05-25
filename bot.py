@@ -1,6 +1,6 @@
-import socket,threading,random,os,twitchio
+import socket,threading,random,os
+from time import time
 from twitchio.ext import commands, eventsub
-
 
 class Bot(commands.Bot):
 
@@ -18,9 +18,18 @@ class Bot(commands.Bot):
 
         # Print the contents of our message to console...
         print(message.content)
-        if( message.content == "badword") : 
-            await message.channel.send(f"Thats a badword {message.author}")
-        
+        keywords = []
+        my_file = open("badwords.txt", "r")
+        keywords = my_file.read()
+
+        #Checks for specific words and deletes it and times user out
+        if(message.content in keywords) : 
+            message_id = message.tags['id']
+            timeout = 120
+            reason = "Automatic timeout from Bot due to message contained badword"
+            await message.channel.send(f"Thats a badword {message.author.name} so your message has been deleted")
+            await message.channel.send(f"/delete {message_id}")
+            await message.channel.send(f"/timeout {message.author.name} {timeout} {reason}]")
 
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
@@ -40,13 +49,30 @@ class Bot(commands.Bot):
 
 
     @commands.command()
-    async def test(self, ctx: commands.Context):
-        await ctx.send(f'{self.nick} has landed')
+    async def help(self, ctx: commands.Context):
+        await ctx.send(f'Questions: (!questions)' + '\n' + 'Hello: (!hello)' + '\n' + 'FlipCoin: (!FlipCoin)' + '\n' + 'Raffle: (!beginraffle)(for admins)' + '\n' + 'Enter Raffle!: (!enterRaffle)' 
+        + '\n' + 'Vote Option A: (!voteA)' + '\n' + 'Vote Option B: (!voteB)' + '\n' + 'Help (!help)')
+
 
     @commands.command()
     async def questions(self, ctx: commands.Context):
         await ctx.send('How long have you been streaming? (!Long)' + '\n' +
                         "What's My Name? (!Name)" + '\n' + "How Old Am I? (!Age)" + '\n' + "Where Am I from? (!From)" + '\n' + "When Do I Stream? (!Stream)")
+
+    @commands.command()
+    async def poll(self, ctx: commands.Context):
+        if (ctx.author.name == "fros7yfeet") :
+            await ctx.send("https://strawpoll.com/polls/e6Z2e13P5gN")
+        else :
+            await ctx.send(f"/w {ctx.author.name} You do not have access to this command")
+    
+    @commands.command()
+    async def FlipCoin(self, ctx: commands.Context):
+        randomNum = random.randint(1,2)
+        if (randomNum == 1) :
+            await ctx.send(f"/w {ctx.author.name} Heads WINS!")
+        else :
+            await ctx.send(f"/w {ctx.author.name} Tails WINS!")
 
     @commands.command()
     async def Long(self, ctx: commands.Context):
