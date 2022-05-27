@@ -1,10 +1,10 @@
+from ast import keyword
 import socket,threading,random,os
 from time import time
+from unicodedata import name
 from twitchio.ext import commands, eventsub
 
 class Bot(commands.Bot):
-    run = False;
-
     def __init__(self):
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
         # prefix can be a callable, which returns a list of strings or a string...
@@ -95,14 +95,15 @@ class Bot(commands.Bot):
     async def Stream(self, ctx: commands.Context):
         await ctx.send('I stream everyday at 4')
 
-    @commands.command(name = 'beginraffle')
-    async def beginraffle(self, ctx: commands.Context, message):
-        if('impishvictor24' == {message.author.name}):
+    @commands.command()
+    async def beginraffle(self, ctx: commands.Context):
+        print(ctx.author.name)
+        if('fros7yfeet' == ctx.author.name):
             await ctx.send('Entries for the raffle have started. Type !raffle  to join now!!')
-            run = True;
         else:
             await ctx.send('You are not the Streamer')
     
+<<<<<<< Updated upstream
     @commands.command(name = 'raffle')
     async def raffle(self, ctx: commands.Context, message):
         if(run == True):
@@ -124,8 +125,34 @@ class Bot(commands.Bot):
                 run = False;
                 with open("listForRaffle.txt", 'r+') as f:
                     f.truncate(0)
+=======
+    @commands.command()
+    async def raffle(self, ctx: commands.Context):
+            print(ctx.author.name)
+            my_file1 = open("listForRaffle.txt", "r")
+            if (ctx.author.name not in my_file1) :
+                my_file1 = open("listForRaffle.txt", "a")
+                my_file1.write(f"{ctx.author.name} \n")
+                my_file1.close()
+                await ctx.send(f"{ctx.author.name} has entered the raffle!")
+            else :
+                ctx.send(f"{ctx.author.name} you have already entered this raffle")
+    
+    @commands.command()
+    async def endraffle(self, ctx: commands.Context):
+        print(ctx.author.name)
+        if(ctx.author.name == "fros7yfeet"):
+            my_file1 = open("listForRaffle.txt", "r")
+            lines= my_file1.read().split("\n")
+            my_file1.close()
+            random_person = random.choice(lines)
+            print(random_person)
+            await ctx.send(f"{random_person} has won the raffle")
+            with open("listForRaffle.txt", "w") as f:
+                f.write("")
+>>>>>>> Stashed changes
         else:
-            await ctx.send('You are not the Streamer')
+           await ctx.send('You are not the Streamer')
 
 bot = Bot()
 bot.run()
