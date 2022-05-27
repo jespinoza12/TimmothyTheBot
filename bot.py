@@ -103,29 +103,6 @@ class Bot(commands.Bot):
         else:
             await ctx.send('You are not the Streamer')
     
-<<<<<<< Updated upstream
-    @commands.command(name = 'raffle')
-    async def raffle(self, ctx: commands.Context, message):
-        if(run == True):
-            print(message.content)
-            keywords = []
-            my_file2 = open("listForRaffle.txt", "r")
-            keywords = my_file2.read()
-            my_file2.append(message.author.name + '\n')
-            await ctx.send('{message.author.name} has entered the raffle!')
-        else:
-            await ctx.send('The Raffle has not started')
-    
-    @commands.command(name = 'runraffle')
-    async def runraffle(self, ctx: commands.Context, message):
-        if(run == True):
-            if('impishvictor24' == {message.author.name}):
-                random_people = random.choice(my_file2)
-                await ctx.send('{random_people} has won the raffle')
-                run = False;
-                with open("listForRaffle.txt", 'r+') as f:
-                    f.truncate(0)
-=======
     @commands.command()
     async def raffle(self, ctx: commands.Context):
             print(ctx.author.name)
@@ -150,7 +127,6 @@ class Bot(commands.Bot):
             await ctx.send(f"{random_person} has won the raffle")
             with open("listForRaffle.txt", "w") as f:
                 f.write("")
->>>>>>> Stashed changes
         else:
            await ctx.send('You are not the Streamer')
 
