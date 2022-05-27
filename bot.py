@@ -1,8 +1,9 @@
 import random,os
 from twitchio.ext import commands
+
 class Bot(commands.Bot):
     def __init__(self):
-        super().__init__(token=os.environ['TMI_TOKEN'], prefix=os.environ['BOT_PREFIX'], initial_channels=[os.environ['CHANNEL']])
+        super().__init__(token=os.environ['TMI_TOKEN'], prefix=os.environ['BOT_PREFIX'], initial_channels=[os.environ['CHANNEL']])    
 
     async def event_message(self, message):
         if message.echo:
@@ -169,6 +170,7 @@ class Bot(commands.Bot):
                 else :
                     await ctx.channel.send(f"/w {ctx.author.name} You have already entered this raffle!")
                     await ctx.channel.send(f"/delete {ctx.message.id}")
+
             else :
                 await ctx.send("Raffle has not started")
                 await ctx.channel.send(f"/delete {ctx.message.id} ")
@@ -196,5 +198,7 @@ class Bot(commands.Bot):
         else: 
             await ctx.send("Raffle has not started")
             await ctx.channel.send(f"/delete {ctx.message.id} ")
+
+
 bot = Bot()
 bot.run()
