@@ -8,7 +8,8 @@ pylama = "*"
 
 [packages]
 pyaml = "*"
-twitchio = "*"
+twitchio = {extras = ["sounds"], version = "*"}
+pipwin = "*"
 
 [requires]
 python_version = "3.9"
