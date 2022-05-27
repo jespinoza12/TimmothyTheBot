@@ -4,7 +4,7 @@ from twitchio.ext import commands, eventsub
 
 class Bot(commands.Bot):
     run = False;
-    
+
     def __init__(self):
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
         # prefix can be a callable, which returns a list of strings or a string...
@@ -122,6 +122,8 @@ class Bot(commands.Bot):
                 random_people = random.choice(my_file2)
                 await ctx.send('{random_people} has won the raffle')
                 run = False;
+                with open("listForRaffle.txt", 'r+') as f:
+                    f.truncate(0)
         else:
             await ctx.send('You are not the Streamer')
 
