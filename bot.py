@@ -104,7 +104,7 @@ class Bot(commands.Bot):
             await ctx.send('You are not the Streamer')
     
     @commands.command(name = 'raffle')
-    async def beginraffle(self, ctx: commands.Context, message):
+    async def raffle(self, ctx: commands.Context, message):
         if(run == True):
             print(message.content)
             keywords = []
@@ -116,7 +116,7 @@ class Bot(commands.Bot):
             await ctx.send('The Raffle has not started')
     
     @commands.command(name = 'runraffle')
-    async def beginraffle(self, ctx: commands.Context, message):
+    async def runraffle(self, ctx: commands.Context, message):
         if(run == True):
             if('impishvictor24' == {message.author.name}):
                 random_people = random.choice(my_file2)
