@@ -31,16 +31,20 @@ class Bot(commands.Bot):
     #Says Hello back
     @commands.command()
     async def hello(self, ctx: commands.Context):
-        await ctx.send(f'Hello {ctx.author.name}!')
-        await ctx.channel.send(f"/delete {ctx.message.id}")
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send(f'Hello {ctx.author.name}!')
+            await ctx.channel.send(f"/delete {ctx.message.id}")
+        else:
+            await ctx.channel.send(f"/w {ctx.author.name} Hello")
+            await ctx.channel.send(f"/delete {ctx.message.id}")
     #Help Menu
     @commands.command()
     async def help(self, ctx: commands.Context):
-        prompt ="(!questions), (!hello), (!flipcoin), (!beginraffle), (!endpoll), Create Poll: (!poll How-are-you-today? good bad), (!help), (!endpoll)"
+        prompt ="(!questions), (!hello), (!flipcoin), (!beginraffle)(Admin), (!endpoll)(Admin), Create Poll(Admin): (!poll How-are-you-today? good bad), (!help)"
         if (ctx.author.name == 'fros7yfeet'):
-            await ctx.send(f' (!questions),' + ' (!hello),' + ' (!flipcoin),' + ' (!beginraffle),'
-            + " (!endpoll),"  + ' Create Poll: (!poll How-are-you-today? good bad),' + 
-            ' (!help),'+ " (!endpoll)")
+            await ctx.send(f'(!questions),' + ' (!hello),' + ' (!flipcoin),' + ' (!beginraffle)(Admin),'
+            + " (!endpoll)(Admin),"  + ' Create Poll(Admin): (!poll How-are-you-today? good bad),' + 
+            ' (!help)')
         else:
             await ctx.channel.send(f"/w {ctx.author.name} {prompt}")
 
@@ -129,7 +133,7 @@ class Bot(commands.Bot):
                 await ctx.channel.send(f"There is already an open Poll")
                 await ctx.channel.send(f"/delete {ctx.message.id}")
         except:
-            await ctx.send("Ooops you probably tried to add more than 2 options or you tried to only have one option")
+            await ctx.send("Try Again but replace the spaces with - or Only limit yourself to two options or There was a typo")
     #Voting
     @commands.command()
     async def vote(self, ctx: commands.Context):
@@ -203,7 +207,7 @@ class Bot(commands.Bot):
             await ctx.send('Entries for the raffle have started. Type !raffle  to join now!!')
             await ctx.channel.send(f"/delete {ctx.message.id}")
         else:
-            await ctx.send('You are not the Streamer')
+            await ctx.channel.send(f'/w {ctx.author.name} You are not the Streamer')
     #enter raffle
     @commands.command()
     async def raffle(self, ctx: commands.Context):
@@ -224,7 +228,7 @@ class Bot(commands.Bot):
                         await ctx.channel.send(f"/w {ctx.author.name} You have already entered this raffle!")
                         await ctx.channel.send(f"/delete {ctx.message.id}")
                 else :
-                    await ctx.send("Raffle has not started")
+                    await ctx.channel.send(f"/w {ctx.author.name} Raffle has not started")
                     await ctx.channel.send(f"/delete {ctx.message.id}")
     #End Raffle
     @commands.command()
