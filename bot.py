@@ -97,14 +97,14 @@ class Bot(commands.Bot):
         
         if (my_file1.read() == "True"):
             if (ctx.author.name not in my_file2.read()) :
-                 message = ctx.message.content.split(" ")
-                 vote = message[1].lower()
-                 my_file3 = open("txt/voted.txt", "a")
-                 my_file4 = open("txt/votes.txt", "a")
-                 my_file3.write(f"{ctx.author.name} \n")
-                 my_file4.write(f"{vote}")
-                 await ctx.send(f"{ctx.author.name} has voted!")
-                 await ctx.channel.send(f"/delete {ctx.message.id}")
+                message = ctx.message.content.split(" ")
+                vote = message[1].lower()
+                my_file3 = open("txt/voted.txt", "a")
+                my_file4 = open("txt/votes.txt", "a")
+                my_file3.write(f"{ctx.author.name} \n")
+                my_file4.write(f"{vote}")
+                await ctx.send(f"{ctx.author.name} has voted!")
+                await ctx.channel.send(f"/delete {ctx.message.id}")
             else:
                 await ctx.channel.send(f"/{ctx.author.name} You have already voted!")
                 await ctx.channel.send(f"/delete {ctx.message.id}")
