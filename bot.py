@@ -1,5 +1,5 @@
 import random,os
-from twitchio.ext import commands
+from twitchio.ext import commands, sounds
 class Bot(commands.Bot):
     def __init__(self):
         super().__init__(token=os.environ['TMI_TOKEN'], prefix=os.environ['BOT_PREFIX'], initial_channels=[os.environ['CHANNEL']])
