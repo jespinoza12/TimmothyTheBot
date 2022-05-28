@@ -17,7 +17,10 @@ class Bot(commands.Bot):
             message_id = message.tags['id']
             timeout = 120
             reason = "Automatic timeout from Bot due to message contained badword"
-            await message.channel.send(f"Thats a badword {message.author.name} so your message has been deleted")
+            if (message.author.name == 'fros7yfeet'):
+                await message.channel.send(f"Thats a badword {message.author.name} so your message has been deleted")
+            else:
+                await message.channel.send(f"/w {message.author.name} Thats a badword so your message has been deleted")
             await message.channel.send(f"/delete {message_id}")
             await message.channel.send(f"/timeout {message.author.name} {timeout} {reason}]")
         await self.handle_commands(message)
@@ -29,59 +32,90 @@ class Bot(commands.Bot):
     #Help Menu
     @commands.command()
     async def help(self, ctx: commands.Context):
-        await ctx.send(f'Questions: (! questions)' + ' Hello: (! hello)' + ' FlipCoin: (! FlipCoin)' + ' Start Raffle: (! beginraffle)'
-        + ' Enter Raffle!: (! raffle)' + " End Poll(Admins): (! endpoll)" + '\n' + ' Poll Vote: (! vote A/B) Example: (! vote A)'  +
-        ' Poll Start (Admins): (! poll) [question [For spaces insert -]] [option1] [option2] Example: (!pollstart) How-are-you-today? good bad' + 
-        ' Help (! help)'+ " End Poll(Admins): (!endpoll)")
+        
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send(f' (!questions),' + ' (!hello),' + ' (!flipcoin),' + ' (!beginraffle),'
+            + " (!endpoll),"  + ' Create Poll: (!poll How-are-you-today? good bad),' + 
+            ' (!help),'+ " (!endpoll)")
+        else:
+            await ctx.channel.send(f"/w {ctx.author.name} (!questions), (!hello), (!flipcoin), (!beginraffle), (!endpoll), Create Poll: (!poll How-are-you-today? good bad), (!help), (!endpoll)")
 
     #List of frequently asked questions
     @commands.command()
     async def questions(self, ctx: commands.Context):
-        await ctx.send('How long have you been streaming? (!Long)' +
-                        "What's My Name? (!Name)" + "How Old Am I? (!Age)" + "Where Am I from? (!From)" + "When Do I Stream? (!Stream)")
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send('How long have you been streaming? (!Long)' +
+                    "What's My Name? (!name)" + "How Old Am I? (!age)" + "Where Am I from? (!home)" + "When Do I Stream? (!stream)")
+        else:
+            await ctx.send(f"/w {ctx.author.name} How long have you been streaming?(!Long), What's My Name? (!name), How Old Am I? (!age), Where Am I from? (!home), When Do I Stream? (!stream)")
+            
     #Flip Coin
     @commands.command()
-    async def FlipCoin(self, ctx: commands.Context):
+    async def flipcoin(self, ctx: commands.Context):
         randomNum = random.randint(1,2)
         await ctx.channel.send(f"/delete {ctx.message.id}")
         if (randomNum == 1) :
-            await ctx.send(f"/w {ctx.author.name} Heads WINS!")
+            if (ctx.author.name == 'fros7yfeet'):
+                await ctx.send(f"{ctx.author.name} Heads WINS!")
+            else:
+                await ctx.send(f"/w{ctx.author.name} Heads WINS!")
         else :
-            await ctx.send(f"/w {ctx.author.name} Tails WINS!")
+            if (ctx.author.name == 'fros7yfeet'):
+                await ctx.send(f"{ctx.author.name} Tails WINS!")
+            else:
+                await ctx.send(f"/w{ctx.author.name} Tails WINS!")
             
     #Question
     @commands.command()
-    async def Long(self, ctx: commands.Context):
-        await ctx.send('I have been streaming for 2 years')
+    async def long(self, ctx: commands.Context):
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send('I have been streaming for 2 years')
+        else:
+            await ctx.send(f"/w {ctx.author.name} I have been streaming for 2 years")
     #Question
     @commands.command()
-    async def Name(self, ctx: commands.Context):
-        await ctx.send('Julian Winters')
+    async def name(self, ctx: commands.Context):
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send('Julian Winters')
+        else:
+            await ctx.send(f"/w {ctx.author.name} Julian Winters")
     #Question
     @commands.command()
-    async def Age(self, ctx: commands.Context):
-        await ctx.send('20')
+    async def age(self, ctx: commands.Context):
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send('20')
+        else:
+            await ctx.send(f"/w {ctx.author.name} 20")
     #Question
     @commands.command()
-    async def From(self, ctx: commands.Context):
-        await ctx.send('I am from New York, Carliona')
+    async def home(self, ctx: commands.Context):
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send('I am from New York, Carliona')
+        else:
+            await ctx.send(f"/w {ctx.author.name} I am from New York, Carliona")
+        
     #Question
     @commands.command()
-    async def Stream(self, ctx: commands.Context):
-        await ctx.send('I stream everyday at 4')
+    async def stream(self, ctx: commands.Context):
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send('I stream everyday at 4')
+        else:
+            await ctx.send(f"/w {ctx.author.name} I stream everyday at 4")
     #Create Poll
     @commands.command()
     async def poll(self, ctx: commands.Context):
         my_file1 = open("txt/pollstart.txt", "r")
+        admins = open("txt/admins.txt", "r")
+
         if (my_file1.read() == "False"):
-            if (ctx.author.name == "fros7yfeet") :
+            if (ctx.author.name in admins.read()) :
                 message = ctx.message.content.split(" ")
                 question = message[1].replace("-", " ")
                 option1 = message[2]
                 option2 = message[3]
                 my_file1 = open("txt/pollstart.txt", "w")
                 my_file1.write("True")
-                await ctx.send(f"Poll has started!!! \n The question is {question} \n /vote A for {option1} \n /vote B for {option2}")
+                await ctx.send(f"Poll has started!!! \n The question is {question} \n !vote A for {option1} \n !vote B for {option2}")
                 await ctx.channel.send(f"/delete {ctx.message.id}")
             else :
                 await ctx.channel.send(f"/w {ctx.author.name} You do not have access to this command")
@@ -94,33 +128,35 @@ class Bot(commands.Bot):
     async def vote(self, ctx: commands.Context):
         my_file1 = open("txt/pollstart.txt", "r")
         my_file2 = open("txt/voted.txt", "r")
-        
-        if (my_file1.read() == "True"):
-            if (ctx.author.name not in my_file2.read()) :
-                message = ctx.message.content.split(" ")
-                vote = message[1].lower()
-                my_file3 = open("txt/voted.txt", "a")
-                my_file4 = open("txt/votes.txt", "a")
-                my_file3.write(f"{ctx.author.name} \n")
-                my_file4.write(f"{vote}")
-                await ctx.send(f"{ctx.author.name} has voted!")
-                await ctx.channel.send(f"/delete {ctx.message.id}")
-            else:
-                await ctx.channel.send(f"/{ctx.author.name} You have already voted!")
-                await ctx.channel.send(f"/delete {ctx.message.id}")
+        if (ctx.author.name == 'fros7yfeet'):
+            await ctx.send("You cant vote on your own poll silly")
         else:
-            await ctx.send("No poll started come back later")
-            await ctx.channel.send(f"/delete {ctx.message.id}")
+            if (my_file1.read() == "True"):
+                if (ctx.author.name not in my_file2.read()) :
+                    message = ctx.message.content.split(" ")
+                    vote = message[1].lower()
+                    my_file3 = open("txt/voted.txt", "a")
+                    my_file4 = open("txt/votes.txt", "a")
+                    my_file3.write(f"{ctx.author.name} \n")
+                    my_file4.write(f"{vote}")
+                    await ctx.send(f"{ctx.author.name} has voted!")
+                    await ctx.channel.send(f"/delete {ctx.message.id}")
+                else:
+                    await ctx.channel.send(f"/w {ctx.author.name} You have already voted!")
+                    await ctx.channel.send(f"/delete {ctx.message.id}")
+            else:
+                await ctx.send(f"/w {ctx.author.name} No poll started come back later")
+                await ctx.channel.send(f"/delete {ctx.message.id}")
     #End Poll
     @commands.command()
     async def pollend(self, ctx: commands.Context): 
         running = open("txt/pollstart.txt", "r")
         file1 = open("txt/votes.txt")
+        admins = open("txt/admins.txt", "r")
         if(running.read() == "True"):
-            if(ctx.author.name == "fros7yfeet"):
+            if(ctx.author.name in admins.read()):
                 aVoteCount = file1.read().count("a")
                 bVoteCount = file1.read().count("b")
-
                 await ctx.send(f"Option A has {aVoteCount} and Option B has {bVoteCount}")
 
                 if (aVoteCount > bVoteCount):
@@ -145,8 +181,9 @@ class Bot(commands.Bot):
     #Begins Raffle
     @commands.command()
     async def beginraffle(self, ctx: commands.Context):
-        print(ctx.author.name)
-        if('fros7yfeet' == ctx.author.name):
+        user = ctx.author.name
+        admins = open("txt/admins.txt", "r")
+        if( user in admins.read()):
             my_file1 = open("txt/run.txt", "w")
             my_file1.write("True")
             await ctx.send('Entries for the raffle have started. Type !raffle  to join now!!')
@@ -159,31 +196,33 @@ class Bot(commands.Bot):
             print(ctx.author.name)
             my_file1 = open("txt/run.txt", "r")
             my_file3 = open("txt/listForRaffle.txt", "r")
-
-            if (my_file1.read() == "True"):
-                if (ctx.author.name not in my_file3.read()) :
-                    my_file1 = open("txt/listForRaffle.txt", "a")
-                    my_file1.write(f"{ctx.author.name} \n")
-                    my_file1.close()
-                    await ctx.send(f"{ctx.author.name} has entered the raffle!")
-                    await ctx.channel.send(f"/delete {ctx.message.id}")
+            if (ctx.author.name == 'fros7yfeet'):
+                await ctx.send("You cant enter your own raffle silly")
+            else:
+                if (my_file1.read() == "True"):
+                    if (ctx.author.name not in my_file3.read()) :
+                        my_file1 = open("txt/listForRaffle.txt", "a")
+                        my_file1.write(f"{ctx.author.name} \n")
+                        my_file1.close()
+                        await ctx.send(f"{ctx.author.name} has entered the raffle!")
+                        await ctx.channel.send(f"/delete {ctx.message.id}")
+                    else :
+                        await ctx.channel.send(f"/w {ctx.author.name} You have already entered this raffle!")
+                        await ctx.channel.send(f"/delete {ctx.message.id}")
                 else :
-                    await ctx.channel.send(f"/w {ctx.author.name} You have already entered this raffle!")
+                    await ctx.send("Raffle has not started")
                     await ctx.channel.send(f"/delete {ctx.message.id}")
-
-            else :
-                await ctx.send("Raffle has not started")
-                await ctx.channel.send(f"/delete {ctx.message.id} ")
     #End Raffle
     @commands.command()
     async def endraffle(self, ctx: commands.Context):
         print(ctx.author.name)
         my_file1 = open("txt/run.txt", "r")
+        admins = open("txt/admins.txt", "r")
         if(my_file1.read() == "True"):
-            if(ctx.author.name == "fros7yfeet"):
-                my_file1 = open("txt/listForRaffle.txt", "r")
-                lines= my_file1.read().split("\n")
-                my_file1.close()
+            if(ctx.author.name in admins.read()):
+                my_file2 = open("txt/listForRaffle.txt", "r")
+                lines= my_file2.read().split("\n")
+                my_file2.close()
                 random_person = random.choice(lines)
                 print(random_person)
                 await ctx.send(f"{random_person} has won the raffle")

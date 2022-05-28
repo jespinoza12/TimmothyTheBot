@@ -1,0 +1,6 @@
+bob 
+john 
+keem
+BOT_NICK
+Hello
+me
