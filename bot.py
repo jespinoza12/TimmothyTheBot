@@ -196,6 +196,74 @@ class Bot(commands.Bot):
         else: 
             await ctx.send("Raffle has not started")
             await ctx.channel.send(f"/delete {ctx.message.id} ")
+    #open song requests
+    @commands.command()
+    async def openSongRequests(self, ctx: commands.Context):
+        my_file1 = open("txt/requestStart.txt", "r")
+        admins = open("txt/admins.txt", "r")
+        try:
+            if (my_file1.read() == "False"):
+                if (ctx.author.name in admins.read()) :
+                    message = ctx.message.content.split(" ")
+                    question = message[1].replace("-", " ")
+                    my_file1 = open("txt/requestStart.txt", "w")
+                    my_file1.write("True")
+                    await ctx.send(f"Song Requests are now open, one request per person")
+                    await ctx.channel.send(f"/delete {ctx.message.id}")
+                else :
+                    await ctx.channel.send(f"/w {ctx.author.name} You do not have access to this command")
+                    await ctx.channel.send(f"/delete {ctx.message.id}")
+            else:
+                await ctx.channel.send(f"song requests are already open")
+                await ctx.channel.send(f"/delete {ctx.message.id}")
+        except:
+            await ctx.send("Try Again")
+    #request a song
+    @commands.command()
+    async def requestsong(self, ctx: commands.Context):
+            my_file1 = open("txt/requestStart.txt", "r")
+            my_file2 = open("txt/songsRequested.txt", "r")
+            message = ctx.message.content.split(" ")
+            request = message[1].lower()
+            if (ctx.author.name == 'fros7yfeet'):
+                await ctx.send("You cant request for yourself silly")
+            else:
+                if (my_file1.read() == "True"):
+                    if (ctx.author.name not in my_file2.read()) :
+                        message = ctx.message.content.split(" ")
+                        request = message[1].lower()
+                        my_file3 = open("txt/songsRequested.txt", "a")
+                        my_file4 = open("txt/songsRequested.txt", "a")
+                        my_file3.write(f"{ctx.author.name}: \n")
+                        my_file4.write(f"{request}")
+                        await ctx.send(f"{ctx.author.name} has requested {request}!")
+                        await ctx.channel.send(f"/delete {ctx.message.id}")
+                    else:
+                        await ctx.channel.send(f"/w {ctx.author.name} You have already requested a song!")
+                        await ctx.channel.send(f"/delete {ctx.message.id}")
+                else:
+                    await ctx.channel.send(f"/w {ctx.author.name} song requests are not open come back later")
+                    await ctx.channel.send(f"/delete {ctx.message.id}")
+    #close song requests
+    @commands.command()
+    async def pollend(self, ctx: commands.Context): 
+        running = open("txt/requestStart.txt", "r")
+        file1 = open("txt/songsRequested.txt")
+        admins = open("txt/admins.txt", "r")
+        if(running.read() == "True"):
+            if(ctx.author.name in admins.read()):
+                with open("txt/songsrequested.txt", "w") as f:
+                    f.write("")
+                with open("txt/requestStart.txt", "w") as f:
+                    f.write("False")
+
+                await ctx.channel.send(f"/delete {ctx.message.id} ")
+            else:
+                await ctx.send("You dont have the perms to use this command")
+                await ctx.channel.send(f"/delete {ctx.message.id} ")
+        else: 
+            await ctx.send("song requests werent started")
+            await ctx.channel.send(f"/delete {ctx.message.id} ")
     #Begins Raffle
     @commands.command()
     async def beginraffle(self, ctx: commands.Context):
