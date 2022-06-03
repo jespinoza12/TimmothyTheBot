@@ -40,11 +40,11 @@ class Bot(commands.Bot):
     #Help Menu
     @commands.command()
     async def help(self, ctx: commands.Context):
-        prompt ="(!questions), (!hello), (!flipcoin), (!beginraffle)(Admin), (!endpoll)(Admin), Create Poll(Admin): (!poll How-are-you-today? good bad), (!help)"
+        prompt ="(!questions), (!hello), (!flipcoin), (!beginraffle)(Admin), (!endpoll)(Admin), Create Poll(Admin): (!poll How-are-you-today? good bad), (!help), !opensong(Admin), !requestsong: (!requestsong mr-brightside the-killers) !endrequests(Admin)"
         if (ctx.author.name == 'fros7yfeet'):
             await ctx.send(f'(!questions),' + ' (!hello),' + ' (!flipcoin),' + ' (!beginraffle)(Admin),'
             + " (!endpoll)(Admin),"  + ' Create Poll(Admin): (!poll How-are-you-today? good bad),' + 
-            ' (!help)')
+            ' (!help),' + ' !opensong(Admin),' + " !requestsong: (!requestsong mr-brightside the-killers)," + "!endrequests(Admin)") 
         else:
             await ctx.channel.send(f"/w {ctx.author.name} {prompt}")
 
