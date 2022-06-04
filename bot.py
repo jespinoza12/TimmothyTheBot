@@ -11,10 +11,6 @@ class Bot(commands.Bot):
         
         print(message.content)
         keywords = []
-        message1 = message.content.split("!")
-        message_lower = "!" + message1[1].lower()
-        message.content = message_lower
-        print(message_lower)
         my_file = open("txt/badwords.txt", "r")
         keywords = my_file.read()
         if(message.content in keywords) : 
